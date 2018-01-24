@@ -1,0 +1,39 @@
+apply plugin:'war'
+apply plugin:'eclipse-wtp'
+apply plugin:'pmd'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+	compile 'org.springframework:spring-web:4.3.13.RELEASE'
+	compile 'org.springframework:spring-webmvc:4.3.13.RELEASE'
+	compile 'org.springframework:spring-core:4.3.13.RELEASE'
+	compile 'org.springframework:spring-context:4.3.13.RELEASE'
+	compile 'org.springframework:spring-aop:4.3.13.RELEASE'
+	compile 'org.springframework:spring-beans:4.3.13.RELEASE'
+	
+	compile 'javax.servlet:javax.servlet-api:3.1.0'
+	
+	compile 'org.apache.cxf:cxf-rt-frontend-jaxws:3.2.1'
+	compile 'org.apache.cxf:cxf-rt-transports-http:3.2.1'
+	
+	compile 'org.slf4j:slf4j-api:1.7.25'
+	compile 'ch.qos.logback:logback-classic:1.2.3'
+
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+pmd {
+	toolVersion = '5.3.3'
+	targetJdk = 1.7
+	ignoreFailures = true
+	sourceSets = [ sourceSets.main ]
+	reportsDir = file("$project.buildDir/reports/pmd")
+	ruleSets = [ 'java-basic', 'java-braces', 'java-unusedcode' ]
+}
